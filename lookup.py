@@ -4,8 +4,8 @@ import re
 import functools
 
 """
-This is a user-interactive program that parses the Shakespeare Lexicon and Quotation 
-Dictionary and allows the user to search it.
+This is a user-interactive program that parses the Shakespeare Lexicon 
+and Quotation Dictionary and allows the user to search it.
 """
 
 FILENAME = 'small.xml'
@@ -472,11 +472,12 @@ class TextManipulation:
     def highlight_word(word, quote):
         """
         This method takes in a quote and the word for which the quote is giving context. 
-        In the quote the word is substituted by '--s 'or '[word[0]]\.' (-- that is first-letter period).
+        In the quote the word is substituted by '--s', '--ed' or '[word[0]]\.' (-- that is first-letter period).
         Using re we replace those fillers with the actual word, and highlight it in magenta.
         """
         word = word.lower()
         result = re.sub(r'--s', TextManipulation.MAGENTA + word + 's' + TextManipulation.ENDCOLOR, quote)
+        result = re.sub(r'--ed', TextManipulation.MAGENTA + word + 'ed' + TextManipulation.ENDCOLOR, result)
         result = re.sub(r'([^A-Za-z])' + word[0].lower() + r'\.([^A-Za-z])', '\g<1>' + TextManipulation.MAGENTA + word + TextManipulation.ENDCOLOR + '\g<2>', result)
         return result
 
